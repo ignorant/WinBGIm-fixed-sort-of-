@@ -2,11 +2,9 @@ libbgi.a: drawing.o misc.o mouse.o palette.o text.o winbgi.o winthread.o file.o 
 	ar -rv libbgi.a drawing.o misc.o mouse.o palette.o text.o winthread.o winbgi.o file.o dibutil.o
 
 clean:
-	del *.o
-	if exist libbgi.a   del libbgi.a
-	if exist graphics.h del graphics.h
+	rm -f *.o libbgi.a graphics.h
 
-CPPFLAGS = -c -O3 -fno-rtti -fno-exceptions -m32
+CPPFLAGS = -c -O3 -fno-rtti -fno-exceptions -Wno-narrowing
 
 drawing.o: drawing.cxx winbgim.h winbgitypes.h
 	g++ $(CPPFLAGS) drawing.cxx
@@ -36,5 +34,4 @@ file.o: file.cxx dibutil.h dibapi.h winbgitypes.h
 	g++ $(CPPFLAGS) file.cxx
 
 graphics.h: winbgim.h
-	if exist graphics.h del graphics.h
-	copy /y winbgim.h graphics.h
+	cp winbgim.h graphics.h
