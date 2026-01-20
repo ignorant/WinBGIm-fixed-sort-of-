@@ -171,9 +171,9 @@ static void set_font(WindowData* pWndData)
 	font_name[pWndData->textInfo.font]
 	);
 
-  // assign the fonts to each of the hdcs
-  for ( int i = 0; i < MAX_PAGES; i++ )
-	DeleteObject(SelectObject( pWndData->hDC[i], hFont ));
+    // assign the fonts to each of the hdcs
+    for ( int i = 0; i < MAX_PAGES; i++ )
+	SelectObject( pWndData->hDC[i], hFont );
 }
 
 
@@ -203,7 +203,7 @@ void gettextsettings(struct textsettingstype *texttypeinfo)
 //                direction, and size.  In addition, the current position has
 //                been modified to reflect the text that was just output.
 //
-void outtext(char *textstring)
+void outtext(const char *textstring)
 {
     HDC hDC = BGI__GetWinbgiDC( );
     WindowData* pWndData = BGI__GetWindowDataPtr( );
@@ -231,7 +231,7 @@ void outtext(char *textstring)
 //                font using outtext or outtextxy, any part of the string that
 //                extends outside the current viewport is truncated.
 //
-void outtextxy(int x, int y, char *textstring)
+void outtextxy(int x, int y, const char *textstring)
 {
     HDC hDC = BGI__GetWinbgiDC( );
     WindowData* pWndData = BGI__GetWindowDataPtr( );
@@ -324,7 +324,7 @@ int textheight(const char *textstring)
 // text output settings.
 // POSTCONDITION: the width of the string in pixels has been returned.
 //
-int textwidth(char *textstring)
+int textwidth(const char *textstring)
 {
     HDC hDC = BGI__GetWinbgiDC( );
     SIZE tb;
@@ -350,7 +350,7 @@ void outstreamxy(int x, int y, std::ostringstream& out)
 	if (all[i] == '\n')
 	{
 	    if (line.length( ) > 0)
-	    	outtext((char *) line.c_str( ));
+	    	outtext((const char *) line.c_str( ));
 	    y += textheight("X");
 	    x = startx;
 	    line.clear( );
@@ -360,7 +360,7 @@ void outstreamxy(int x, int y, std::ostringstream& out)
 	    line += all[i];
     }
     if (line.length( ) > 0)
-	outtext((char *) line.c_str( ));
+	outtext((const char *) line.c_str( ));
 }
 
 void outstream(std::ostringstream& out)
