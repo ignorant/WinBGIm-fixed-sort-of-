@@ -486,7 +486,7 @@ int getmaxmode( )
 // This function returns a string describing the current graphics mode.  It has the format
 // "width*height MODE_NAME"  For WinBGI, this is the window size followed by VGAHI
 //
-const char *getmodename( int mode_number )
+char *getmodename( int mode_number )
 {
     static char mode[20];
     WindowData *pWndData = BGI__GetWindowDataPtr( );
@@ -594,7 +594,7 @@ int graphresult( )
 // This function uses the information in graphdriver and graphmode to select
 // the appropriate size for the window to be created.
 //
-void initgraph( int *graphdriver, int *graphmode, const char *pathtodriver )
+void initgraph( int *graphdriver, int *graphmode, char *pathtodriver )
 {
     WindowData *pWndData;
     int width = 0, height = 0;
